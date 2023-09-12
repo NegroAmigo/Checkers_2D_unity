@@ -8,6 +8,10 @@ public class Tile : MonoBehaviour
     [SerializeField] private SpriteRenderer _rendrer;
     [SerializeField] private GameObject _highlight;
 
+    public BaseChecker occupiedChecker;
+
+    public bool isWalkable => occupiedChecker == null;
+
     public void Init(bool isBlack)
     {
         _rendrer.color = isBlack ? _colorBlack : _colorWhite;
@@ -23,4 +27,12 @@ public class Tile : MonoBehaviour
         _highlight.SetActive(false);
     }
 
+
+    public void SetChecker(BaseChecker checker)
+    {
+        if (checker.OccupiedTile != null) checker.OccupiedTile.occupiedChecker = null;
+        checker.transform.position = transform.position;
+        occupiedChecker = checker;
+        checker.OccupiedTile = this;
+    }
 }
