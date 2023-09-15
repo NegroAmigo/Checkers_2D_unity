@@ -5,4 +5,5 @@ using UnityEngine;
 public class BaseChecker : MonoBehaviour
 {
     public Tile OccupiedTile;
+    public Faction faction;
 }

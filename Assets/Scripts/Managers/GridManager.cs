@@ -19,6 +19,8 @@ public class GridManager : MonoBehaviour
 
 
     private Dictionary<Vector2, Tile> _tiles;
+    public List<Tile> possibleMove = new List<Tile>();
+    public List<BaseChecker> possibleAttack = new List<BaseChecker>();
 
     public void CreateGrid()
     {
@@ -75,5 +77,59 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+
+    public void ShowPossibleMoves(Tile centerTile, GameState gameState)
+    {
+        
+        if (_tiles.ContainsValue(centerTile) && centerTile.occupiedChecker.faction == Faction.White && gameState == GameState.WhiteTurn)
+        {
+            var tempVector = new Vector2();
+            for (int i = -1; i <= 1; i += 2)
+            {
+
+                tempVector.x = centerTile.transform.position.x + i;
+                tempVector.y = centerTile.transform.position.y + 1;
+                if (_tiles.ContainsKey(tempVector))
+                {
+                    if (_tiles[tempVector].isWalkable)
+                    {
+                        possibleMove.Add(_tiles[tempVector]);
+                    }
+                    else if (_tiles[tempVector].occupiedChecker.faction != centerTile.occupiedChecker.faction)
+                    {
+                        possibleAttack.Add(_tiles[tempVector].occupiedChecker);
+                        tempVector.x+=i;
+                        tempVector.y++;
+                        possibleMove.Add(_tiles[tempVector]);
+
+
+                    }
+                }
+
+                
+
+            }
+
+        }
+        if (_tiles.ContainsValue(centerTile) && centerTile.occupiedChecker.faction == Faction.Black && gameState == GameState.BlackTurn)
+        {
+            var tempVector = new Vector2();
+            for (int i = -1; i <= 1; i += 2)
+            {
+
+                tempVector.x = centerTile.transform.position.x + i;
+                tempVector.y = centerTile.transform.position.y - 1;
+                if (_tiles.ContainsKey(tempVector) && _tiles[tempVector].isWalkable)
+                {
+                    possibleMove.Add(_tiles[tempVector]);
+                }
+
+
+
+            }
+
+        }
+
+    }
    
 }

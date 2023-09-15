@@ -7,6 +7,7 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
     private List<ScriptableUnit> _checkers;
+    public BaseChecker SelectedChecker;
 
     private void Awake()
     {
@@ -41,10 +42,17 @@ public class UnitManager : MonoBehaviour
 
             spawnTile.SetChecker(spawnedChecker);
         }
+        GameManager.Instance.ChangeGameState(GameState.WhiteTurn);
     }
 
     private T GetColoredChecker<T>(Faction faction) where T : BaseChecker
     {
         return (T)_checkers.Where(c => c.faction == faction).First().CheckerPrefab;
+    }
+
+
+    public void SetSelectedChecker(BaseChecker checker)
+    {
+        SelectedChecker = checker;
     }
 }

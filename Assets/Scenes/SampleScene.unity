@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa8ad546fd7abf4c885ddeb7da5c523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedChecker: {fileID: 0}
 --- !u!4 &921895163
 Transform:
   m_ObjectHideFlags: 0
@@ -337,6 +338,8 @@ MonoBehaviour:
   _height: 8
   _tilePrefab: {fileID: 6872644097137200308, guid: 4406e7448c8ae6e41b4e7930b6154949, type: 3}
   _mainCam: {fileID: 519420032}
+  possibleMove: []
+  possibleAttack: []
 --- !u!4 &1061395997
 Transform:
   m_ObjectHideFlags: 0
